@@ -35,7 +35,26 @@ public class Curso implements Serializable {
     public Curso(){
         
     }
-    
+
+    public String getMaestro() {
+        return maestro;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getSalon() {
+        return salon;
+    }
+
+    public String getAlumno() {
+        return alumno;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
 
     public Long getId() {
         return id;

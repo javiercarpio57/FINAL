@@ -1,8 +1,11 @@
 
 import Persistencia.Asistencia;
+import Persistencia.BaseDatos;
 import Persistencia.Curso;
 import Persistencia.Persona;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  *
@@ -129,13 +132,35 @@ public class AgregarAsistencia extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         String cursos = (String)cmbCurso.getSelectedItem();
         String op = "";
+        String maestro = "";
+        Date myDate = new Date();
+        
+        switch (cursos) {
+            case "Programacion":
+                maestro = "Douglas Barrios";
+                break;
+            case "Calculo 1":
+                maestro = "Ronald Curtiss";
+                break;
+            case "Fisica 1":
+                maestro = "Magda Moscoso";
+                break;
+        }
+        BaseDatos db = new BaseDatos();
         for(Persona p: persona){
             op = p.getNombre() + " " + p.getApellido();
             
             if(op.equals(nombre)){
-                
+                curso.add(db.agregarCurso(maestro, "Programacion", "A - 209", nombre, new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(myDate)));
+                asistencia.add(db.agregarAsistencia(cursos, nombre, maestro, new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(myDate)));
             }
         }
+        
+        Menu menu = new Menu();
+        Menu.nombre = nombre;
+        menu.setLista(persona, asistencia, curso);
+        menu.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_jButton1ActionPerformed
 
     

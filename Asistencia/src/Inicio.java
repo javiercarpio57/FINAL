@@ -211,6 +211,8 @@ public class Inicio extends javax.swing.JFrame {
                 this.setVisible(false);
             }else if((tipo.equals("Maestro")) && (type.equals("Maestro"))){
                 Profesor prof = new Profesor();
+                prof.setLista(persona, asistencia, curso);
+                Profesor.nombre = nombre;
                 prof.setVisible(true);
                 this.setVisible(false);
             }else{

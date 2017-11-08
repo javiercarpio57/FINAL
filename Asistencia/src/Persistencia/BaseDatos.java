@@ -40,7 +40,26 @@ public class BaseDatos {
         em.getTransaction().commit();
         
         return e;
+    }
+    
+    public Curso agregarCurso(String maestro, String nombre, String salon, String alumno, String fecha){
+        Curso curso = new Curso(maestro, nombre, salon, alumno, fecha);
         
+        em.getTransaction().begin();
+        em.persist(curso);
+        em.getTransaction().commit();
+        
+        return curso;
+    }
+    
+    public Asistencia agregarAsistencia(String curso, String alumno, String maestro, String fecha){
+        Asistencia asistencia = new Asistencia(curso, alumno, maestro, fecha);
+        
+        em.getTransaction().begin();
+        em.persist(asistencia);
+        em.getTransaction().commit();
+        
+        return asistencia;
     }
     
     public List<Persona> recogerPersona(){
