@@ -2,6 +2,7 @@
 package Persistencia;
 
 import java.io.Serializable;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -12,16 +13,34 @@ import javax.persistence.Id;
  * @author javie
  */
 @Entity
-public class Estudiante implements Serializable {
+public class Estudiante extends Persona implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
+    @Column(name="id")
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
+    private String correo;
+
+    public Estudiante(String correo, String n, String a, int car, String contra) {
+        super(n, a, car, contra);
+        this.correo = correo;
+    }
+    
+    public Estudiante(){
+        
+    }
+
+    public String getCorreo() {
+        return correo;
+    }
+    
+    @Override
     public Long getId() {
         return id;
     }
 
+    @Override
     public void setId(Long id) {
         this.id = id;
     }

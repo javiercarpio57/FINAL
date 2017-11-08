@@ -34,6 +34,23 @@ public class Persona implements Serializable {
         carnet = car;
         contrasena = contra;
     }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public String getApellido() {
+        return apellido;
+    }
+
+    public int getCarnet() {
+        return carnet;
+    }
+
+    public String getContrasena() {
+        return contrasena;
+    }
+    
     
     
     public Long getId() {

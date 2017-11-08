@@ -12,35 +12,35 @@ import javax.persistence.Id;
  * @author javie
  */
 @Entity
-public class Maestro extends Persona implements Serializable {
+public class Curso implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    
+    private String maestro;
+    private String nombre;
+    private String salon;
+    private String alumno;
+    private String fecha;
 
-    private String curso;
-
-    public Maestro(String curso, String n, String a, int car, String contra) {
-        super(n, a, car, contra);
-        this.curso = curso;
+    public Curso(String maestro, String nombre, String salon, String alumno, String fecha) {
+        this.maestro = maestro;
+        this.nombre = nombre;
+        this.salon = salon;
+        this.alumno = alumno;
+        this.fecha = fecha;
     }
     
-    public Maestro(){
-        super("", "", 0, "");
-        curso = "";
+    public Curso(){
+        
     }
+    
 
-    public String getCurso() {
-        return curso;
-    }
-    
-    
-    @Override
     public Long getId() {
         return id;
     }
 
-    @Override
     public void setId(Long id) {
         this.id = id;
     }
@@ -55,10 +55,10 @@ public class Maestro extends Persona implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Maestro)) {
+        if (!(object instanceof Curso)) {
             return false;
         }
-        Maestro other = (Maestro) object;
+        Curso other = (Curso) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -67,7 +67,7 @@ public class Maestro extends Persona implements Serializable {
 
     @Override
     public String toString() {
-        return "Persistencia.Maestro[ id=" + id + " ]";
+        return "Persistencia.Curso[ id=" + id + " ]";
     }
     
 }

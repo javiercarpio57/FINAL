@@ -1,7 +1,9 @@
 package Persistencia;
 
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
+import javax.persistence.Query;
 
 /**
  *
@@ -22,10 +24,44 @@ public class BaseDatos {
         emf.close();
     }
     
-    public void agregarEstudiante(){
+    public void agregarMaestro(String curso, String n, String a, int car, String contra){
+        Maestro maestro = new Maestro(curso, n, a, car, contra);
+        
         em.getTransaction().begin();
-        //em.persist(t);
+        em.persist(maestro);
         em.getTransaction().commit();
+    }
+    
+    public Estudiante agregarEstudiante(String correo, String n, String a, int car, String contra){
+        Estudiante e = new Estudiante(correo, n, a, car, contra);
+        //Persona p = new Persona(n, a, car, contra);
+        em.getTransaction().begin();
+        em.persist(e);
+        em.getTransaction().commit();
+        
+        return e;
+        
+    }
+    
+    public List<Persona> recogerPersona(){
+        Query q = em.createQuery("select d from Persona d");
+        List<Persona> persona = q.getResultList();
+        
+        return persona;
+    }
+    
+    public List<Asistencia> recogerAsistencia(){
+        Query q = em.createQuery("select d from Asistencia d");
+        List<Asistencia> asistencia = q.getResultList();
+        
+        return asistencia;
+    }
+    
+    public List<Curso> recogerCurso(){
+        Query q = em.createQuery("select d from Curso d");
+        List<Curso> curso = q.getResultList();
+        
+        return curso;
     }
     
     

@@ -1,8 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
+import Persistencia.Asistencia;
+import Persistencia.BaseDatos;
+import Persistencia.Curso;
+import Persistencia.Persona;
+import java.util.ArrayList;
+
 
 /**
  *
@@ -10,11 +12,32 @@
  */
 public class Inicio extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Inicio
-     */
+    private ArrayList<Persona> persona;
+    private ArrayList<Asistencia> asistencia;
+    private ArrayList<Curso> curso;
+    
     public Inicio() {
         initComponents();
+        
+        persona = new ArrayList<>();
+        asistencia = new ArrayList<>();
+        curso = new ArrayList<>();
+        
+        BaseDatos db = new BaseDatos();
+        
+        for(Persona p: db.recogerPersona()){
+            persona.add(p);
+        }
+        
+        for(Asistencia a: db.recogerAsistencia()){
+            asistencia.add(a);
+        }
+        
+        for(Curso c: db.recogerCurso()){
+            curso.add(c);
+        }
+        
+        
     }
 
     /**
@@ -27,32 +50,134 @@ public class Inicio extends javax.swing.JFrame {
     private void initComponents() {
 
         lblTipo = new javax.swing.JLabel();
+        spnCarnet = new javax.swing.JSpinner();
+        txtContra = new javax.swing.JPasswordField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        btnAgregar = new javax.swing.JButton();
+        btnSiguiente = new javax.swing.JButton();
+        cmbTipo = new javax.swing.JComboBox();
+        jLabel3 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         lblTipo.setFont(new java.awt.Font("Century Gothic", 0, 36)); // NOI18N
         lblTipo.setText("Estudiante");
 
+        spnCarnet.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+        spnCarnet.setModel(new javax.swing.SpinnerNumberModel(0, 0, 99999, 1));
+
+        txtContra.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+
+        jLabel1.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+        jLabel1.setText("Carnet");
+
+        jLabel2.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+        jLabel2.setText("Contraseña");
+
+        btnAgregar.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+        btnAgregar.setText("Agregar alumno");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
+
+        btnSiguiente.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+        btnSiguiente.setText("Siguiente");
+
+        cmbTipo.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+        cmbTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Estudiante", "Maestro" }));
+        cmbTipo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbTipoActionPerformed(evt);
+            }
+        });
+
+        jLabel3.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+        jLabel3.setText("Seleccione:");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
+                .addGap(165, 165, 165)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(167, 167, 167))
+            .addGroup(layout.createSequentialGroup()
                 .addGap(292, 292, 292)
                 .addComponent(lblTipo)
-                .addContainerGap(300, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(btnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(btnSiguiente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGap(100, 100, 100))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(116, 116, 116)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(0, 70, Short.MAX_VALUE)
+                        .addComponent(jLabel3)
+                        .addGap(39, 39, 39)
+                        .addComponent(cmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(241, 241, 241))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(spnCarnet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txtContra, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(150, 150, 150))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(50, 50, 50)
                 .addComponent(lblTipo)
-                .addContainerGap(604, Short.MAX_VALUE))
+                .addGap(113, 113, 113)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmbTipo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addGap(92, 92, 92)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jLabel2))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(spnCarnet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtContra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(86, 86, 86)
+                .addComponent(btnAgregar)
+                .addGap(30, 30, 30)
+                .addComponent(btnSiguiente)
+                .addContainerGap(78, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void cmbTipoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbTipoActionPerformed
+        String tipo = (String)cmbTipo.getSelectedItem();
+        
+        lblTipo.setText(tipo);
+    }//GEN-LAST:event_cmbTipoActionPerformed
+
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        NuevoAlumno na = new NuevoAlumno();
+        na.setLista(persona, asistencia, curso);
+        na.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_btnAgregarActionPerformed
+
+    public void setLista(ArrayList<Persona> p, ArrayList<Asistencia> a, ArrayList<Curso> c){
+        persona = p;
+        asistencia = a;
+        curso = c;
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -89,6 +214,14 @@ public class Inicio extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnSiguiente;
+    private javax.swing.JComboBox cmbTipo;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel lblTipo;
+    private javax.swing.JSpinner spnCarnet;
+    private javax.swing.JPasswordField txtContra;
     // End of variables declaration//GEN-END:variables
 }

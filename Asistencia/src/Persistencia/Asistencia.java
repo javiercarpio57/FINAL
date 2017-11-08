@@ -12,35 +12,32 @@ import javax.persistence.Id;
  * @author javie
  */
 @Entity
-public class Maestro extends Persona implements Serializable {
+public class Asistencia implements Serializable {
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     private String curso;
+    private String alumno;
+    private String maestro;
+    private String fecha;
 
-    public Maestro(String curso, String n, String a, int car, String contra) {
-        super(n, a, car, contra);
+    public Asistencia(String curso, String alumno, String maestro, String fecha) {
         this.curso = curso;
+        this.alumno = alumno;
+        this.maestro = maestro;
+        this.fecha = fecha;
     }
     
-    public Maestro(){
-        super("", "", 0, "");
-        curso = "";
-    }
-
-    public String getCurso() {
-        return curso;
+    public Asistencia(){
+        
     }
     
-    
-    @Override
     public Long getId() {
         return id;
     }
 
-    @Override
     public void setId(Long id) {
         this.id = id;
     }
@@ -55,10 +52,10 @@ public class Maestro extends Persona implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Maestro)) {
+        if (!(object instanceof Asistencia)) {
             return false;
         }
-        Maestro other = (Maestro) object;
+        Asistencia other = (Asistencia) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -67,7 +64,7 @@ public class Maestro extends Persona implements Serializable {
 
     @Override
     public String toString() {
-        return "Persistencia.Maestro[ id=" + id + " ]";
+        return "Persistencia.Asistencia[ id=" + id + " ]";
     }
     
 }

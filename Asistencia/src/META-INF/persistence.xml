@@ -3,6 +3,10 @@
   <persistence-unit name="AsistenciaPU" transaction-type="RESOURCE_LOCAL">
     <provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
     <class>Persistencia.Persona</class>
+    <class>Persistencia.Estudiante</class>
+    <class>Persistencia.Maestro</class>
+    <class>Persistencia.Asistencia</class>
+    <class>Persistencia.Curso</class>
     <properties>
       <property name="javax.persistence.jdbc.url" value="jdbc:mysql://localhost:3306/Asistencia?zeroDateTimeBehavior=convertToNull"/>
       <property name="javax.persistence.jdbc.password" value="Javiercarpio1"/>
