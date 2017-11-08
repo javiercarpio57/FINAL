@@ -2,8 +2,10 @@
 import Persistencia.Asistencia;
 import Persistencia.BaseDatos;
 import Persistencia.Curso;
+import Persistencia.Estudiante;
 import Persistencia.Persona;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 
 /**
@@ -15,6 +17,7 @@ public class Inicio extends javax.swing.JFrame {
     private ArrayList<Persona> persona;
     private ArrayList<Asistencia> asistencia;
     private ArrayList<Curso> curso;
+    private String nombre;
     
     public Inicio() {
         initComponents();
@@ -36,8 +39,6 @@ public class Inicio extends javax.swing.JFrame {
         for(Curso c: db.recogerCurso()){
             curso.add(c);
         }
-        
-        
     }
 
     /**
@@ -85,6 +86,11 @@ public class Inicio extends javax.swing.JFrame {
 
         btnSiguiente.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
         btnSiguiente.setText("Siguiente");
+        btnSiguiente.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSiguienteActionPerformed(evt);
+            }
+        });
 
         cmbTipo.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
         cmbTipo.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Estudiante", "Maestro" }));
@@ -167,10 +173,53 @@ public class Inicio extends javax.swing.JFrame {
 
     private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
         NuevoAlumno na = new NuevoAlumno();
+                
         na.setLista(persona, asistencia, curso);
         na.setVisible(true);
         this.setVisible(false);
+        
     }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void btnSiguienteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSiguienteActionPerformed
+        int carnet = (int)spnCarnet.getValue();
+        String contra = (String)txtContra.getText();
+        boolean siguiente = true;
+        String tipo = (String)cmbTipo.getSelectedItem();
+        String type = "";
+        Menu menu = new Menu();
+        
+        for(Persona p: persona){
+            
+            if((p.getCarnet() == carnet) && (p.getContrasena().equals(contra))){
+                siguiente = true;
+                nombre = p.getNombre() + " " + p.getApellido();
+                if(p instanceof Estudiante){
+                    type = "Estudiante";
+                }else{
+                    type = "Maestro";
+                }
+                break;
+            }else{
+                siguiente = false;
+            }
+        }
+        if(siguiente == true){
+            if((tipo.equals("Estudiante")) && (type.equals("Estudiante"))){
+                menu.setLista(persona, asistencia, curso);
+                Menu.nombre = nombre;
+                menu.setVisible(true);
+                this.setVisible(false);
+            }else if((tipo.equals("Maestro")) && (type.equals("Maestro"))){
+                Profesor prof = new Profesor();
+                prof.setVisible(true);
+                this.setVisible(false);
+            }else{
+                JOptionPane.showMessageDialog(this, "Algun dato erroneo.");
+            }
+        }else{
+            JOptionPane.showMessageDialog(this, "Error 101. Datos incorrectos.");
+        }
+    }//GEN-LAST:event_btnSiguienteActionPerformed
 
     public void setLista(ArrayList<Persona> p, ArrayList<Asistencia> a, ArrayList<Curso> c){
         persona = p;

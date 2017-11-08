@@ -4,6 +4,7 @@ import Persistencia.BaseDatos;
 import Persistencia.Curso;
 import Persistencia.Persona;
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -152,13 +153,20 @@ public class NuevoAlumno extends javax.swing.JFrame {
         String contra = (String)txtContrasena.getText();
         String correo = (String)txtCorreo.getText();
         
-        BaseDatos db = new BaseDatos();
-        persona.add(db.agregarEstudiante(correo, nombre, apellido, carnet, contra));
+        if((carnet == 0) || (nombre.equals("")) || (apellido.equals("")) || (contra.equals("")) || (correo.equals(""))){
+            JOptionPane.showMessageDialog(this, "Llene todos los campos.");
+        }else{
+            BaseDatos db = new BaseDatos();
+            persona.add(db.agregarEstudiante(correo, nombre, apellido, carnet, contra));
+            JOptionPane.showMessageDialog(this, "Se agrego correctamente.");
+            Inicio i = new Inicio();
+            i.setLista(persona, asistencia, curso);
+            i.setVisible(true);
+            this.setVisible(false);
+        }
         
-        Inicio i = new Inicio();
-        i.setLista(persona, asistencia, curso);
-        i.setVisible(true);
-        this.setVisible(false);
+        
+        
     }//GEN-LAST:event_btnAgregarActionPerformed
 
     public void setLista(ArrayList<Persona> p, ArrayList<Asistencia> a, ArrayList<Curso> c){

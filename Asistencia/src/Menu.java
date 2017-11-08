@@ -1,8 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
+import Persistencia.Asistencia;
+import Persistencia.Curso;
+import Persistencia.Persona;
+import java.util.ArrayList;
 
 /**
  *
@@ -10,11 +10,17 @@
  */
 public class Menu extends javax.swing.JFrame {
 
-    /**
-     * Creates new form Menu
-     */
+    private ArrayList<Persona> persona;
+    private ArrayList<Asistencia> asistencia;
+    private ArrayList<Curso> curso;
+    public static String nombre;
+    
     public Menu() {
         initComponents();
+        
+        persona = new ArrayList<>();
+        asistencia = new ArrayList<>();
+        curso = new ArrayList<>();
     }
 
     /**
@@ -27,11 +33,34 @@ public class Menu extends javax.swing.JFrame {
     private void initComponents() {
 
         lblNombre = new javax.swing.JLabel();
+        btnAgregar = new javax.swing.JButton();
+        btnAgregar1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        addWindowListener(new java.awt.event.WindowAdapter() {
+            public void windowOpened(java.awt.event.WindowEvent evt) {
+                formWindowOpened(evt);
+            }
+        });
 
         lblNombre.setFont(new java.awt.Font("Century Gothic", 0, 36)); // NOI18N
         lblNombre.setText("Estudiante");
+
+        btnAgregar.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+        btnAgregar.setText("Agregar asistencia");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
+
+        btnAgregar1.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+        btnAgregar1.setText("Ver asistencias");
+        btnAgregar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregar1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -40,19 +69,54 @@ public class Menu extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(32, 32, 32)
                 .addComponent(lblNombre)
-                .addContainerGap(546, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 214, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnAgregar1, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(207, 207, 207))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(54, 54, 54)
                 .addComponent(lblNombre)
-                .addContainerGap(648, Short.MAX_VALUE))
+                .addGap(95, 95, 95)
+                .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(72, 72, 72)
+                .addComponent(btnAgregar1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(357, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        lblNombre.setText(nombre);
+    }//GEN-LAST:event_formWindowOpened
+
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+        AgregarAsistencia a = new AgregarAsistencia();
+
+        AgregarAsistencia.nombre = nombre;
+        a.setLista(persona, asistencia, curso);
+        a.setVisible(true);
+        this.setVisible(false);
+
+    }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void btnAgregar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregar1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnAgregar1ActionPerformed
+
+    
+    public void setLista(ArrayList<Persona> p, ArrayList<Asistencia> a, ArrayList<Curso> c){
+        persona = p;
+        asistencia = a;
+        curso = c;
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -89,6 +153,8 @@ public class Menu extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnAgregar;
+    private javax.swing.JButton btnAgregar1;
     private javax.swing.JLabel lblNombre;
     // End of variables declaration//GEN-END:variables
 }
