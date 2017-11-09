@@ -154,6 +154,8 @@ public class VerRegistros extends javax.swing.JFrame {
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
         lblNombre.setText(nombre);
+        DefaultTableModel model = (DefaultTableModel)tabla.getModel();
+        model.setColumnCount(5);
         
         JTableHeader head = tabla.getTableHeader();
         TableColumnModel tcm = head.getColumnModel();
@@ -168,7 +170,10 @@ public class VerRegistros extends javax.swing.JFrame {
         t3.setHeaderValue("MAESTRO");
         
         TableColumn t4 = tcm.getColumn(3);
-        t4.setHeaderValue("FECHA");
+        t4.setHeaderValue("SALON");
+        
+        TableColumn t5 = tcm.getColumn(4);
+        t5.setHeaderValue("FECHA");
         
         tabla.repaint();
         tabla.setRowHeight(30);
@@ -181,7 +186,7 @@ public class VerRegistros extends javax.swing.JFrame {
         model.setNumRows(0);
         for(Curso c: curso){
             if(c.getAlumno().equals(nombre)){
-                model.addRow(new Object[]{c.getAlumno(), c.getNombre(), c.getMaestro(), c.getFecha()});
+                model.addRow(new Object[]{c.getAlumno(), c.getNombre(), c.getMaestro(), c.getSalon(), c.getFecha()});
             }
         }
     }
@@ -199,6 +204,7 @@ public class VerRegistros extends javax.swing.JFrame {
         
         DefaultTableModel model = (DefaultTableModel)tabla.getModel();
         model.setNumRows(0);
+        
         for(Curso c: curso){
             if(c.getAlumno().equals(nombre)){
                 if(c.getNombre().equals(tipo)){

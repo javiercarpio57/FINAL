@@ -3,6 +3,10 @@ import Persistencia.Asistencia;
 import Persistencia.Curso;
 import Persistencia.Persona;
 import java.util.ArrayList;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.JTableHeader;
+import javax.swing.table.TableColumn;
+import javax.swing.table.TableColumnModel;
 
 
 /**
@@ -34,7 +38,12 @@ public class Profesor extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        tabla = new javax.swing.JTable();
+        btnRegresar = new javax.swing.JButton();
+        cmbFecha = new javax.swing.JComboBox();
+        btnRegresar1 = new javax.swing.JButton();
+        btnRegresar2 = new javax.swing.JButton();
+        cmbCarnet = new javax.swing.JComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -43,7 +52,8 @@ public class Profesor extends javax.swing.JFrame {
             }
         });
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        tabla.setFont(new java.awt.Font("Century Gothic", 0, 18)); // NOI18N
+        tabla.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -54,29 +64,140 @@ public class Profesor extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(jTable1);
+        jScrollPane1.setViewportView(tabla);
+
+        btnRegresar.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+        btnRegresar.setText("Regresar");
+        btnRegresar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresarActionPerformed(evt);
+            }
+        });
+
+        cmbFecha.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+
+        btnRegresar1.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+        btnRegresar1.setText("Buscar");
+        btnRegresar1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresar1ActionPerformed(evt);
+            }
+        });
+
+        btnRegresar2.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+        btnRegresar2.setText("Buscar");
+        btnRegresar2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresar2ActionPerformed(evt);
+            }
+        });
+
+        cmbCarnet.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 698, Short.MAX_VALUE)
+            .addComponent(jScrollPane1)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(btnRegresar)
+                .addGap(74, 74, 74))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(66, 66, 66)
+                .addComponent(cmbFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
+                .addComponent(btnRegresar1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
+                .addComponent(cmbCarnet, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(34, 34, 34)
+                .addComponent(btnRegresar2)
+                .addGap(60, 60, 60))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(244, 244, 244)
+                .addGap(147, 147, 147)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmbFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRegresar1)
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(cmbCarnet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnRegresar2)))
+                .addGap(58, 58, 58)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(122, Short.MAX_VALUE))
+                .addGap(35, 35, 35)
+                .addComponent(btnRegresar)
+                .addContainerGap(54, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
+        tabla.setRowHeight(30);
         
+        llenarTabla();
+        llenarFechas();
     }//GEN-LAST:event_formWindowOpened
 
+    private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
+        
+    }//GEN-LAST:event_btnRegresarActionPerformed
+
+    private void btnRegresar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresar1ActionPerformed
+        String tipo = (String)cmbFecha.getSelectedItem();
+
+        DefaultTableModel model = (DefaultTableModel)tabla.getModel();
+        model.setNumRows(0);
+
+        for(Asistencia a: asistencia){
+            if(a.getMaestro().equals(nombre)){
+                if(a.getFecha().substring(0, 10).equals(tipo)){
+                    model.addRow(new Object[]{a.getMaestro(), a.getCurso(), a.getAlumno(), a.getFecha()});
+
+                }
+            }
+            
+        }
+        /*for(Curso c: curso){
+            if(c.getAlumno().equals(nombre)){
+                if(c.getNombre().equals(tipo)){
+                    model.addRow(new Object[]{c.getAlumno(), c.getNombre(), c.getMaestro(), c.getFecha()});
+                }
+            }
+        }*/
+    }//GEN-LAST:event_btnRegresar1ActionPerformed
+
+    private void btnRegresar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresar2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btnRegresar2ActionPerformed
+
+    public void llenarFechas(){
+        String fecha = "";
+        for(Asistencia a: asistencia){
+            fecha = a.getFecha().substring(0, 10);
+            cmbFecha.addItem(fecha);
+        }
+    }
+    
+    public void llenarTabla(){
+        DefaultTableModel model = (DefaultTableModel)tabla.getModel();
+        model.setNumRows(0);
+        model.setColumnCount(0);
+        
+        model.addColumn("MAESTRO");
+        model.addColumn("CURSO");
+        model.addColumn("ALUMNO");
+        model.addColumn("FECHA");
+        
+        for(Asistencia a: asistencia){
+            if(a.getMaestro().equals(nombre)){
+                model.addRow(new Object[]{a.getMaestro(), a.getCurso(), a.getAlumno(), a.getFecha()});
+            }
+        }
+    }
+    
     public void setLista(ArrayList<Persona> p, ArrayList<Asistencia> a, ArrayList<Curso> c){
         persona = p;
         asistencia = a;
@@ -118,7 +239,12 @@ public class Profesor extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnRegresar;
+    private javax.swing.JButton btnRegresar1;
+    private javax.swing.JButton btnRegresar2;
+    private javax.swing.JComboBox cmbCarnet;
+    private javax.swing.JComboBox cmbFecha;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable jTable1;
+    private javax.swing.JTable tabla;
     // End of variables declaration//GEN-END:variables
 }

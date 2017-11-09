@@ -33,6 +33,24 @@ public class Asistencia implements Serializable {
     public Asistencia(){
         
     }
+
+    public String getCurso() {
+        return curso;
+    }
+
+    public String getAlumno() {
+        return alumno;
+    }
+
+    public String getMaestro() {
+        return maestro;
+    }
+
+    public String getFecha() {
+        return fecha;
+    }
+    
+    
     
     public Long getId() {
         return id;
