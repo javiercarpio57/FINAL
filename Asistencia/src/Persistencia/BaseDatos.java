@@ -32,9 +32,9 @@ public class BaseDatos {
         em.getTransaction().commit();
     }
     
-    public Estudiante agregarEstudiante(String correo, String n, String a, int car, String contra){
-        Estudiante e = new Estudiante(correo, n, a, car, contra);
-        //Persona p = new Persona(n, a, car, contra);
+    public Estudiante agregarEstudiante(String correo, String n, String a, int car, String contra, String pregunta, String respuesta){
+        Estudiante e = new Estudiante(correo, n, a, car, contra, pregunta, respuesta);
+        
         em.getTransaction().begin();
         em.persist(e);
         em.getTransaction().commit();

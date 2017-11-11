@@ -51,7 +51,17 @@ public class Persona implements Serializable {
         return contrasena;
     }
     
+    public String getPregunta(){
+        return "";
+    }
     
+    public String getRespuesta(){
+        return "";
+    }
+    
+    public String getCurso(){
+        return "";
+    }
     
     public Long getId() {
         return id;

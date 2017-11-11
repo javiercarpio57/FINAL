@@ -2,6 +2,7 @@
 import Persistencia.Asistencia;
 import Persistencia.BaseDatos;
 import Persistencia.Curso;
+import Persistencia.Maestro;
 import Persistencia.Persona;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -51,7 +52,6 @@ public class AgregarAsistencia extends javax.swing.JFrame {
         lblNombre.setText("Seleccione su curso");
 
         cmbCurso.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
-        cmbCurso.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "Programacion", "Calculo 1", "Fisica 1" }));
 
         lblNombre1.setFont(new java.awt.Font("Century Gothic", 0, 36)); // NOI18N
         lblNombre1.setText("Se toma asistencia de:");
@@ -77,13 +77,13 @@ public class AgregarAsistencia extends javax.swing.JFrame {
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addContainerGap(182, Short.MAX_VALUE)
+                .addContainerGap(170, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addComponent(lblNombre)
-                        .addGap(42, 42, 42)
-                        .addComponent(cmbCurso, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(154, 154, 154))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(cmbCurso, javax.swing.GroupLayout.PREFERRED_SIZE, 292, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(118, 118, 118))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                             .addComponent(jButton1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -118,7 +118,12 @@ public class AgregarAsistencia extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void formWindowOpened(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowOpened
-        // TODO add your handling code here:
+        cmbCurso.removeAll();
+        for(Persona p: persona){
+            if(p instanceof Maestro){
+                cmbCurso.addItem(p.getCurso());
+            }
+        }
     }//GEN-LAST:event_formWindowOpened
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
@@ -133,17 +138,21 @@ public class AgregarAsistencia extends javax.swing.JFrame {
         String cursos = (String)cmbCurso.getSelectedItem();
         String op = "";
         String maestro = "";
+        String salon = "";
         Date myDate = new Date();
         
         switch (cursos) {
-            case "Programacion":
+            case "Programacion Orientada a Objetos":
                 maestro = "Douglas Barrios";
+                salon = "A - 209";
                 break;
             case "Calculo 1":
                 maestro = "Ronald Curtiss";
+                salon = "A - 110";
                 break;
             case "Fisica 1":
                 maestro = "Magda Moscoso";
+                salon = "A - 302";
                 break;
         }
         BaseDatos db = new BaseDatos();
@@ -151,7 +160,7 @@ public class AgregarAsistencia extends javax.swing.JFrame {
             op = p.getNombre() + " " + p.getApellido();
             
             if(op.equals(nombre)){
-                curso.add(db.agregarCurso(maestro, "Programacion", "A - 209", nombre, new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(myDate)));
+                curso.add(db.agregarCurso(maestro, cursos, salon, nombre, new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(myDate)));
                 asistencia.add(db.agregarAsistencia(cursos, nombre, maestro, new SimpleDateFormat("dd/MM/yyyy HH:mm:ss").format(myDate)));
             }
         }

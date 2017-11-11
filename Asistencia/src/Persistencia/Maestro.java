@@ -30,6 +30,7 @@ public class Maestro extends Persona implements Serializable {
         curso = "";
     }
 
+    @Override
     public String getCurso() {
         return curso;
     }

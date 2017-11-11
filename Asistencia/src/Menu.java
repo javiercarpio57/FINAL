@@ -35,6 +35,7 @@ public class Menu extends javax.swing.JFrame {
         lblNombre = new javax.swing.JLabel();
         btnAgregar = new javax.swing.JButton();
         btnAgregar1 = new javax.swing.JButton();
+        btnAgregar2 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -46,6 +47,7 @@ public class Menu extends javax.swing.JFrame {
         lblNombre.setFont(new java.awt.Font("Century Gothic", 0, 36)); // NOI18N
         lblNombre.setText("Estudiante");
 
+        btnAgregar.setBackground(new java.awt.Color(0, 204, 204));
         btnAgregar.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
         btnAgregar.setText("Agregar asistencia");
         btnAgregar.addActionListener(new java.awt.event.ActionListener() {
@@ -54,11 +56,21 @@ public class Menu extends javax.swing.JFrame {
             }
         });
 
+        btnAgregar1.setBackground(new java.awt.Color(204, 255, 204));
         btnAgregar1.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
         btnAgregar1.setText("Ver asistencias");
         btnAgregar1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnAgregar1ActionPerformed(evt);
+            }
+        });
+
+        btnAgregar2.setBackground(new java.awt.Color(255, 102, 102));
+        btnAgregar2.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+        btnAgregar2.setText("Cerrar Sesion");
+        btnAgregar2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregar2ActionPerformed(evt);
             }
         });
 
@@ -73,6 +85,7 @@ public class Menu extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(0, 214, Short.MAX_VALUE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(btnAgregar2, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(btnAgregar1, javax.swing.GroupLayout.PREFERRED_SIZE, 338, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(207, 207, 207))
@@ -86,7 +99,9 @@ public class Menu extends javax.swing.JFrame {
                 .addComponent(btnAgregar, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(72, 72, 72)
                 .addComponent(btnAgregar1, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(357, Short.MAX_VALUE))
+                .addGap(80, 80, 80)
+                .addComponent(btnAgregar2, javax.swing.GroupLayout.PREFERRED_SIZE, 62, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(215, Short.MAX_VALUE))
         );
 
         pack();
@@ -113,6 +128,14 @@ public class Menu extends javax.swing.JFrame {
         vr.setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_btnAgregar1ActionPerformed
+
+    private void btnAgregar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregar2ActionPerformed
+        Inicio inicio = new Inicio();
+        inicio.setLista(persona, asistencia, curso);
+        inicio.setVisible(true);
+        this.setVisible(false);
+        
+    }//GEN-LAST:event_btnAgregar2ActionPerformed
 
     
     public void setLista(ArrayList<Persona> p, ArrayList<Asistencia> a, ArrayList<Curso> c){
@@ -159,6 +182,7 @@ public class Menu extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnAgregar1;
+    private javax.swing.JButton btnAgregar2;
     private javax.swing.JLabel lblNombre;
     // End of variables declaration//GEN-END:variables
 }

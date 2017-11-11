@@ -4,7 +4,9 @@ import Persistencia.BaseDatos;
 import Persistencia.Curso;
 import Persistencia.Estudiante;
 import Persistencia.Persona;
+import java.awt.HeadlessException;
 import java.util.ArrayList;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 
@@ -27,6 +29,10 @@ public class Inicio extends javax.swing.JFrame {
         curso = new ArrayList<>();
         
         BaseDatos db = new BaseDatos();
+        
+        /*db.agregarMaestro("Programacion Orientada a Objetos", "Douglas", "Barrios", 80127, "1234");
+        db.agregarMaestro("Calculo 1", "Ronald", "Curtiss", 81284, "1234");
+        db.agregarMaestro("Fisica 1", "Magda", "Moscoso", 82313, "1234");*/
         
         for(Persona p: db.recogerPersona()){
             persona.add(p);
@@ -59,6 +65,7 @@ public class Inicio extends javax.swing.JFrame {
         btnSiguiente = new javax.swing.JButton();
         cmbTipo = new javax.swing.JComboBox();
         jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -103,6 +110,15 @@ public class Inicio extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
         jLabel3.setText("Seleccione:");
 
+        jLabel4.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel4.setForeground(new java.awt.Color(255, 0, 0));
+        jLabel4.setText("Olvide mi contraseña...");
+        jLabel4.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel4MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -117,12 +133,6 @@ public class Inicio extends javax.swing.JFrame {
                 .addGap(292, 292, 292)
                 .addComponent(lblTipo)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(btnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(btnSiguiente, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                .addGap(100, 100, 100))
             .addGroup(layout.createSequentialGroup()
                 .addGap(116, 116, 116)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -137,6 +147,16 @@ public class Inicio extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(txtContra, javax.swing.GroupLayout.PREFERRED_SIZE, 185, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(150, 150, 150))))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(btnAgregar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(btnSiguiente, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(58, 58, 58))
+                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.TRAILING))
+                .addGap(33, 33, 33))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -155,11 +175,13 @@ public class Inicio extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(spnCarnet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(txtContra, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(86, 86, 86)
+                .addGap(50, 50, 50)
                 .addComponent(btnAgregar)
                 .addGap(30, 30, 30)
                 .addComponent(btnSiguiente)
-                .addContainerGap(78, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 24, Short.MAX_VALUE)
+                .addComponent(jLabel4)
+                .addGap(57, 57, 57))
         );
 
         pack();
@@ -223,6 +245,35 @@ public class Inicio extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnSiguienteActionPerformed
 
+    private void jLabel4MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel4MouseClicked
+        int carnet = 0;
+        boolean op;
+        try{
+            carnet = Integer.parseInt(JOptionPane.showInputDialog("Ingrese su numero de carnet"));
+            op = true;
+        }catch(HeadlessException | NumberFormatException e){
+            JOptionPane.showMessageDialog(this, "Incorrecto. Ingreso un texto.");
+            op = false;
+        }
+        
+        String respuesta;
+        
+        if(op == true){
+            for(Persona p: persona){
+                if(p.getCarnet() == carnet){
+                    respuesta = JOptionPane.showInputDialog("Responda:\n" + p.getPregunta());
+                    
+                    if(respuesta.equals(p.getRespuesta())){
+                        JOptionPane.showMessageDialog(this, "Carnet: " + p.getCarnet() + "\nContraseña: " + p.getContrasena());
+                    }
+                }else{
+                    JOptionPane.showMessageDialog(this, "No se ha encontrado el carnet.");
+                }
+            }
+        }
+        
+    }//GEN-LAST:event_jLabel4MouseClicked
+
     public void setLista(ArrayList<Persona> p, ArrayList<Asistencia> a, ArrayList<Curso> c){
         persona = p;
         asistencia = a;
@@ -271,6 +322,7 @@ public class Inicio extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel lblTipo;
     private javax.swing.JSpinner spnCarnet;
     private javax.swing.JPasswordField txtContra;

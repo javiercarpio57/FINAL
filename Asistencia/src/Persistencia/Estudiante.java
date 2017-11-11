@@ -21,10 +21,14 @@ public class Estudiante extends Persona implements Serializable {
     private Long id;
 
     private String correo;
+    private String pregunta;
+    private String respuesta;
 
-    public Estudiante(String correo, String n, String a, int car, String contra) {
+    public Estudiante(String correo, String n, String a, int car, String contra, String pregunta, String respuesta) {
         super(n, a, car, contra);
         this.correo = correo;
+        this.pregunta = pregunta;
+        this.respuesta = respuesta;
     }
     
     public Estudiante(){
@@ -33,6 +37,16 @@ public class Estudiante extends Persona implements Serializable {
 
     public String getCorreo() {
         return correo;
+    }
+
+    @Override
+    public String getPregunta() {
+        return pregunta;
+    }
+
+    @Override
+    public String getRespuesta() {
+        return respuesta;
     }
     
     @Override

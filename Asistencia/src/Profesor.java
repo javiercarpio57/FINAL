@@ -4,10 +4,6 @@ import Persistencia.Curso;
 import Persistencia.Persona;
 import java.util.ArrayList;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.JTableHeader;
-import javax.swing.table.TableColumn;
-import javax.swing.table.TableColumnModel;
-
 
 /**
  *
@@ -105,12 +101,12 @@ public class Profesor extends javax.swing.JFrame {
                 .addGap(74, 74, 74))
             .addGroup(layout.createSequentialGroup()
                 .addGap(66, 66, 66)
-                .addComponent(cmbFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
+                .addComponent(cmbFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRegresar1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
-                .addComponent(cmbCarnet, javax.swing.GroupLayout.PREFERRED_SIZE, 168, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(34, 34, 34)
+                .addComponent(cmbCarnet, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRegresar2)
                 .addGap(60, 60, 60))
         );
@@ -118,12 +114,13 @@ public class Profesor extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(147, 147, 147)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(cmbFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(btnRegresar1)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(cmbCarnet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(btnRegresar2)))
+                        .addComponent(btnRegresar2))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addComponent(cmbFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnRegresar1)))
                 .addGap(58, 58, 58)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(35, 35, 35)
@@ -139,10 +136,14 @@ public class Profesor extends javax.swing.JFrame {
         
         llenarTabla();
         llenarFechas();
+        llenarCarnet();
     }//GEN-LAST:event_formWindowOpened
 
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
-        
+        Inicio inicio = new Inicio();
+        inicio.setLista(persona, asistencia, curso);
+        inicio.setVisible(true);
+        this.setVisible(false);
     }//GEN-LAST:event_btnRegresarActionPerformed
 
     private void btnRegresar1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresar1ActionPerformed
@@ -160,24 +161,60 @@ public class Profesor extends javax.swing.JFrame {
             }
             
         }
-        /*for(Curso c: curso){
-            if(c.getAlumno().equals(nombre)){
-                if(c.getNombre().equals(tipo)){
-                    model.addRow(new Object[]{c.getAlumno(), c.getNombre(), c.getMaestro(), c.getFecha()});
-                }
-            }
-        }*/
     }//GEN-LAST:event_btnRegresar1ActionPerformed
 
     private void btnRegresar2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresar2ActionPerformed
-        // TODO add your handling code here:
+        String tipo = (String)cmbCarnet.getSelectedItem();
+
+        DefaultTableModel model = (DefaultTableModel)tabla.getModel();
+        model.setNumRows(0);
+
+        for(Asistencia a: asistencia){
+            if(a.getMaestro().equals(nombre)){
+                if(a.getAlumno().equals(tipo)){
+                    model.addRow(new Object[]{a.getMaestro(), a.getCurso(), a.getAlumno(), a.getFecha()});
+
+                }
+            }
+            
+        }
     }//GEN-LAST:event_btnRegresar2ActionPerformed
 
     public void llenarFechas(){
         String fecha = "";
         for(Asistencia a: asistencia){
             fecha = a.getFecha().substring(0, 10);
-            cmbFecha.addItem(fecha);
+            
+            if(cmbFecha.getItemCount() == 0){
+                cmbFecha.addItem(fecha);
+            }else{
+                for (int i = 0; i < cmbFecha.getItemCount(); i++) {
+                    if(cmbFecha.getItemAt(i).equals(fecha)){
+                        
+                    }else{
+                        cmbFecha.addItem(fecha);
+                    }
+                }
+            }
+        }
+    }
+    
+    public void llenarCarnet(){
+        for(Asistencia a: asistencia){
+            String alumno = a.getAlumno();
+            
+            
+            if(cmbCarnet.getItemCount() == 0){
+                cmbCarnet.addItem(alumno);
+            }else{
+                for (int i = 0; i < cmbCarnet.getItemCount(); i++) {
+                    if(cmbCarnet.getItemAt(i).equals(alumno)){
+                        
+                    }else{
+                        cmbCarnet.addItem(alumno);
+                    }
+                }
+            }
         }
     }
     
