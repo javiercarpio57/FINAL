@@ -192,10 +192,24 @@ public class NuevoAlumno extends javax.swing.JFrame {
         String correo = (String)txtCorreo.getText();
         String pregunta = (String)cmbPregunta.getSelectedItem();
         String respuesta = (String)txtRespuesta.getText();
+        boolean a = false;
         
         if((carnet == 0) || (nombre.equals("")) || (apellido.equals("")) || (contra.equals("")) || (correo.equals("")) || (respuesta.equals(""))){
             JOptionPane.showMessageDialog(this, "Llene todos los campos.");
+            a = false;
         }else{
+            for(Persona p: persona){
+                if(p.getCarnet() != carnet){
+                    a = true;
+                }else{
+                    JOptionPane.showMessageDialog(this, "Carnet ya creado.");
+                    a = false;
+                    break;
+                }
+            }
+        }
+        
+        if(a == true){
             BaseDatos db = new BaseDatos();
             persona.add(db.agregarEstudiante(correo, nombre, apellido, carnet, contra, pregunta, respuesta));
             JOptionPane.showMessageDialog(this, "Se agrego correctamente.");

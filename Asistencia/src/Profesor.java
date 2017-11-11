@@ -40,6 +40,8 @@ public class Profesor extends javax.swing.JFrame {
         btnRegresar1 = new javax.swing.JButton();
         btnRegresar2 = new javax.swing.JButton();
         cmbCarnet = new javax.swing.JComboBox();
+        btnRegresar3 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -90,6 +92,17 @@ public class Profesor extends javax.swing.JFrame {
 
         cmbCarnet.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
 
+        btnRegresar3.setFont(new java.awt.Font("Century Gothic", 0, 24)); // NOI18N
+        btnRegresar3.setText("Todo");
+        btnRegresar3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnRegresar3ActionPerformed(evt);
+            }
+        });
+
+        jLabel1.setFont(new java.awt.Font("Century Gothic", 0, 48)); // NOI18N
+        jLabel1.setText("Registros");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -99,21 +112,32 @@ public class Profesor extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(btnRegresar)
                 .addGap(74, 74, 74))
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(66, 66, 66)
                 .addComponent(cmbFecha, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(btnRegresar1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
-                .addComponent(cmbCarnet, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(btnRegresar2)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(cmbCarnet, javax.swing.GroupLayout.PREFERRED_SIZE, 190, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(btnRegresar2))
+                    .addComponent(btnRegresar3, javax.swing.GroupLayout.PREFERRED_SIZE, 105, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(60, 60, 60))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(161, 161, 161)
+                .addComponent(jLabel1)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(147, 147, 147)
+                .addGap(38, 38, 38)
+                .addComponent(jLabel1)
+                .addGap(49, 49, 49)
+                .addComponent(btnRegresar3)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                         .addComponent(cmbCarnet, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -122,10 +146,10 @@ public class Profesor extends javax.swing.JFrame {
                         .addComponent(cmbFecha, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(btnRegresar1)))
                 .addGap(58, 58, 58)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 363, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(35, 35, 35)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 319, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnRegresar)
-                .addContainerGap(54, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
@@ -180,6 +204,10 @@ public class Profesor extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_btnRegresar2ActionPerformed
 
+    private void btnRegresar3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresar3ActionPerformed
+        llenarTabla();
+    }//GEN-LAST:event_btnRegresar3ActionPerformed
+
     public void llenarFechas(){
         String fecha = "";
         for(Asistencia a: asistencia){
@@ -208,10 +236,11 @@ public class Profesor extends javax.swing.JFrame {
                 cmbCarnet.addItem(alumno);
             }else{
                 for (int i = 0; i < cmbCarnet.getItemCount(); i++) {
-                    if(cmbCarnet.getItemAt(i).equals(alumno)){
-                        
-                    }else{
+                    if(!cmbCarnet.getItemAt(i).equals(alumno)){
                         cmbCarnet.addItem(alumno);
+                        break;
+                    }else{
+                        
                     }
                 }
             }
@@ -279,8 +308,10 @@ public class Profesor extends javax.swing.JFrame {
     private javax.swing.JButton btnRegresar;
     private javax.swing.JButton btnRegresar1;
     private javax.swing.JButton btnRegresar2;
+    private javax.swing.JButton btnRegresar3;
     private javax.swing.JComboBox cmbCarnet;
     private javax.swing.JComboBox cmbFecha;
+    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTable tabla;
     // End of variables declaration//GEN-END:variables

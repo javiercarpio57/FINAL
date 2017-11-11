@@ -257,6 +257,9 @@ public class Inicio extends javax.swing.JFrame {
         }
         
         String respuesta;
+        String contra = "";
+        boolean op1 = false;
+        boolean a = true;
         
         if(op == true){
             for(Persona p: persona){
@@ -264,12 +267,25 @@ public class Inicio extends javax.swing.JFrame {
                     respuesta = JOptionPane.showInputDialog("Responda:\n" + p.getPregunta());
                     
                     if(respuesta.equals(p.getRespuesta())){
-                        JOptionPane.showMessageDialog(this, "Carnet: " + p.getCarnet() + "\nContraseña: " + p.getContrasena());
+                        op1 = true;
+                        contra = p.getContrasena();
+                        break;
+                    }else{
+                        a = true;
+                        break;
                     }
                 }else{
-                    JOptionPane.showMessageDialog(this, "No se ha encontrado el carnet.");
+                    a = false;
+                    
                 }
             }
+        }
+        if(op1 == true){
+            JOptionPane.showMessageDialog(this, "Carnet: " + carnet + "\nContraseña: " + contra);
+        }else if(a == true){
+            JOptionPane.showMessageDialog(this, "Respuesta incorrecta.");
+        }else if(a == false){
+            JOptionPane.showMessageDialog(this, "No se ha encontrado el carnet.");
         }
         
     }//GEN-LAST:event_jLabel4MouseClicked
