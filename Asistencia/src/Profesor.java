@@ -3,6 +3,7 @@ import Persistencia.Asistencia;
 import Persistencia.Curso;
 import Persistencia.Persona;
 import java.util.ArrayList;
+import java.util.HashSet;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -228,22 +229,20 @@ public class Profesor extends javax.swing.JFrame {
     }
     
     public void llenarCarnet(){
+        ArrayList<String> nombres = new ArrayList<>();
+        HashSet hs = new HashSet();
+        
         for(Asistencia a: asistencia){
             String alumno = a.getAlumno();
-            
-            
-            if(cmbCarnet.getItemCount() == 0){
-                cmbCarnet.addItem(alumno);
-            }else{
-                for (int i = 0; i < cmbCarnet.getItemCount(); i++) {
-                    if(!cmbCarnet.getItemAt(i).equals(alumno)){
-                        cmbCarnet.addItem(alumno);
-                        break;
-                    }else{
-                        
-                    }
-                }
-            }
+            nombres.add(alumno);
+        }
+        
+        hs.addAll(nombres);
+        nombres.clear();
+        nombres.addAll(hs);
+        
+        for(String n: nombres){
+            cmbCarnet.addItem(n);
         }
     }
     
