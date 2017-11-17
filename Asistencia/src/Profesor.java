@@ -6,10 +6,6 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import javax.swing.table.DefaultTableModel;
 
-/**
- *
- * @author javie
- */
 public class Profesor extends javax.swing.JFrame {
 
     private ArrayList<Persona> persona;
@@ -210,21 +206,20 @@ public class Profesor extends javax.swing.JFrame {
     }//GEN-LAST:event_btnRegresar3ActionPerformed
 
     public void llenarFechas(){
-        String fecha = "";
+        ArrayList<String> fecha = new ArrayList<>();
+        HashSet hs1 = new HashSet();
+        
         for(Asistencia a: asistencia){
-            fecha = a.getFecha().substring(0, 10);
-            
-            if(cmbFecha.getItemCount() == 0){
-                cmbFecha.addItem(fecha);
-            }else{
-                for (int i = 0; i < cmbFecha.getItemCount(); i++) {
-                    if(cmbFecha.getItemAt(i).equals(fecha)){
-                        
-                    }else{
-                        cmbFecha.addItem(fecha);
-                    }
-                }
-            }
+            String fech = a.getFecha().substring(0, 10);
+            fecha.add(fech);
+        }
+        
+        hs1.addAll(fecha);
+        fecha.clear();
+        fecha.addAll(hs1);
+        
+        for(String f: fecha){
+            cmbFecha.addItem(f);
         }
     }
     

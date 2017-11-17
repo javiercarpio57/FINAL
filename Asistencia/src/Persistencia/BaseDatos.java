@@ -8,6 +8,7 @@ import javax.persistence.Query;
 /**
  * @author Jose Cifuentes
  * @author Javier Carpio
+ * @author Oliver Mazariegos
  * @version 15.11.2017
  */
 public class BaseDatos {

@@ -11,6 +11,7 @@ import javax.persistence.Id;
 /**
  * @author Jose Cifuentes
  * @author Javier Carpio
+ * @author Oliver Mazariegos
  * @version 15.11.2017
  */
 @Entity
